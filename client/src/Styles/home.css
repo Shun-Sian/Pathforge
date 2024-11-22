@@ -1,0 +1,13 @@
+.home-container {
+  display: flex;
+  justify-content: center;
+}
+
+.home-header {
+  font-size: 24px;
+  font-weight: 500;
+  font-family: 'Jazz LET, fantasy', Arial, sans-serif;
+  color: rgb(194, 138, 34);
+  /* #4c4c4c */
+  margin: 20px 0;
+}

@@ -1,0 +1,23 @@
+.navbar {
+  display: flex;
+  background-color: #4c4c4c;
+  /* border-radius: 4px; */
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  padding: 10px;
+  /* justify-self: space-between; */
+  justify-content: space-between;
+}
+
+.navButton {
+  font-family: 'Jazz LET, fantasy';
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  background-color: transparent;
+}
+
+.navButton:hover {
+  color: rgb(194, 138, 34);
+  transition: 0.3s;
+}
