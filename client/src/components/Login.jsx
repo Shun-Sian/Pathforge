@@ -31,7 +31,7 @@ function Login() {
   return (
     <div className="login-wrapper">
       <div className="login-container">
-        <h2 className="login-title">Login</h2>
+        <h2 className="login-title">Login to Pathforge</h2>
         <form className="login-form" onSubmit={handleSubmit}>
           <label>Email Address:</label>
           <input placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)} />
