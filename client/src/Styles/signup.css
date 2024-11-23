@@ -44,6 +44,7 @@
   border-bottom: 1px solid #efefef;
   padding-top: 15px;
   background-color: transparent;
+  border-bottom: 2px solid rgb(194, 138, 34);
 }
 
 .signUp-button {
