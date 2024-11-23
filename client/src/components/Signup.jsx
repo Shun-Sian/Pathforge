@@ -20,21 +20,23 @@ function Signup() {
   };
   return (
     <>
-      <div className="signUp-container">
-        <h2 className="signUp-title">Sign Up</h2>
-        <form className="signUp-form" onSubmit={handleSubmit}>
-          <label>Email Address</label>
-          <input placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)} />
-          <label>Password</label>
-          <input placeholder="Enter Password" onChange={(e) => setPassword(e.target.value)} />
-          <button className="signUp-button" type="submit">
-            Sign Up
-          </button>
-          <p>Already have an account?</p>
-          <Link to="/login" className="">
-            Login
-          </Link>
-        </form>
+      <div className="signUp-wrapper">
+        <div className="signUp-container">
+          <h2 className="signUp-title">Create an Account</h2>
+          <form className="signUp-form" onSubmit={handleSubmit}>
+            <label>Email Address:</label>
+            <input placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)} />
+            <label>Password:</label>
+            <input placeholder="Enter Password" onChange={(e) => setPassword(e.target.value)} />
+            <button className="signUp-button" type="submit">
+              Sign Up
+            </button>
+            <p>Already have an account?</p>
+            <Link className="signUp-link" to="/login">
+              Login
+            </Link>
+          </form>
+        </div>
       </div>
     </>
   );

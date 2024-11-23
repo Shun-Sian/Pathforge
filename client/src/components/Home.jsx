@@ -23,7 +23,7 @@ function Home() {
   return (
     <div className="home-container">
       <h1 className="home-header">Your Adventures</h1>
-      <div>{message}</div>;
+      {/* <div>{message}</div>; */}
     </div>
   );
 }

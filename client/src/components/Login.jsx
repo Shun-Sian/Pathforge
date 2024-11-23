@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import '../Styles/login.css';
 
 function Login() {
   const [email, setEmail] = useState();
@@ -28,21 +29,23 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
-      <h2 className="login-title">Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Email Address</label>
-        <input placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)} />
-        <label>Password</label>
-        <input placeholder="Enter Password" onChange={(e) => setPassword(e.target.value)} />
-        <button type="submit" className="btn btn-success w-100 rounded-0">
-          Login
-        </button>
-      </form>
-      <p>Don't have an account?</p>
-      <Link to="/register" className="">
-        Sign Up
-      </Link>
+    <div className="login-wrapper">
+      <div className="login-container">
+        <h2 className="login-title">Login</h2>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <label>Email Address:</label>
+          <input placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)} />
+          <label>Password:</label>
+          <input placeholder="Enter Password" onChange={(e) => setPassword(e.target.value)} />
+          <button className="login-button" type="submit">
+            Login
+          </button>
+          <p>Don't have an account?</p>
+          <Link className="login-link" to="/signup">
+            Create an Account
+          </Link>
+        </form>
+      </div>
     </div>
   );
 }
