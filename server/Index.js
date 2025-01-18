@@ -1,17 +1,24 @@
+require('dotenv').config({ path: '../.env' });
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const UserModel = require('./model/User');
+const AdventureModel = require('./model/Adventure');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const JWT_SECRET = 'your_secret_key'; // Use a strong secret key in production
+const JWT_SECRET = process.env.JWT_SECRET;
+console.log('JWT_SECRET ----', process.env.JWT_SECRET);
 
-mongoose.connect('mongodb://127.0.0.1:27017/user', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose
+  .connect('mongodb://127.0.0.1:27017/user', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Error connecting to MongoDB:', err));
 
 app.post('/register', async (req, res) => {
   const { email, password } = req.body;
@@ -49,7 +56,6 @@ app.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid password' });
     }
 
-    // Generate a token if the password is valid
     const token = jwt.sign(
       { id: user._id, email: user.email }, // Payload
       JWT_SECRET, // Secret key
@@ -65,11 +71,17 @@ app.post('/login', async (req, res) => {
 });
 
 const authenticateToken = (req, res, next) => {
-  const token = req.headers['authorization'];
-  if (!token) return res.status(401).json({ message: 'Access token required' });
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
 
-  jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ message: 'Invalid token' });
+  if (!token) {
+    return res.status(401).json({ message: 'Access token required' });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) {
+      return res.status(403).json({ message: 'Invalid or expired token' });
+    }
     req.user = user;
     next();
   });
@@ -77,6 +89,34 @@ const authenticateToken = (req, res, next) => {
 
 app.get('/home', authenticateToken, (req, res) => {
   res.json({ message: 'Welcome to the protected route', user: req.user });
+});
+
+app.post('/add-adventure', authenticateToken, async (req, res) => {
+  const { title, details } = req.body;
+
+  if (!title || !details) {
+    return res.status(400).json({ message: 'Title and description are required' });
+  }
+
+  try {
+    const adventure = await AdventureModel.create({
+      title,
+      details,
+      ownerId: req.user.id,
+    });
+    res.json({ message: 'Adventure added successfully', adventure });
+  } catch (err) {
+    res.status(500).json({ message: 'Error adding adventure', error: err });
+  }
+});
+
+app.get('/adventures', async (req, res) => {
+  try {
+    const adventures = await AdventureModel.find().populate('ownerId', 'email');
+    res.json(adventures);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching Adventures', error: err });
+  }
 });
 
 app.listen(3001, () => {

@@ -1,0 +1,16 @@
+.adventureCard-container {
+  padding: 100px;
+  border: 10px solid #4c4c4c;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  /* #1e1e1e */
+}
+
+.adventureCard-name {
+  background-color: transparent;
+}
+
+.adventureCard-description {
+  background-color: transparent;
+}

@@ -1,0 +1,29 @@
+.adventureList-container {
+  display: grid;
+  gap: 2rem;
+  padding: 1rem 6rem;
+}
+
+@media (min-width: 600px) {
+  .adventureList-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .adventureList-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .adventureList-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1400px) {
+  .adventureList-container {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

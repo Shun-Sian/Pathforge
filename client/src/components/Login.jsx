@@ -12,18 +12,15 @@ function Login() {
     e.preventDefault();
 
     try {
-      console.log('Attempting login with:', { email, password }); // Debugging
+      console.log('Attempting login with:', { email, password });
 
       const response = await axios.post('http://localhost:3001/login', { email, password });
-      console.log('Server response:', response.data); // Debugging
+      console.log('Server response:', response.data);
 
-      // Save the token in localStorage
       localStorage.setItem('token', response.data.token);
-
-      // Navigate to the home page
       navigate('/home');
     } catch (error) {
-      console.error('Login error:', error.response?.data?.message || error.message); // Debugging
+      console.error('Login error:', error.response?.data?.message || error.message);
       alert(error.response?.data?.message || 'Error logging in');
     }
   };
